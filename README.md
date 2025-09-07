@@ -167,6 +167,16 @@ mysql_global_status_threads_connected
 
 ---
 
+## Grafana — API traffic snapshots
+
+**Requests/sec by route & method**
+![Requests per route](assets/grafana-reqs-by-route.png)
+
+**Top-K busiest routes**
+![Top-K routes](assets/grafana-topk-routes.png)
+
+---
+
 ## Troubleshooting
 
 **API not responding**  
