@@ -1,0 +1,24 @@
+name: CI
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install API deps
+        run: cd server && npm ci
+      - name: Build API
+        run: cd server && npm run build
+      - name: Install Web deps
+        run: cd client && npm ci
+      - name: Build Web
+        run: cd client && npm run build
+      - name: Docker build (no push)
+        run: docker build server -t halfbake-api:ci && docker build client -t halfbake-web:ci

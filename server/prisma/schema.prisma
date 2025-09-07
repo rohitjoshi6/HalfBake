@@ -1,0 +1,95 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int       @id @default(autoincrement())
+  email        String    @unique
+  passwordHash String
+  name         String
+  bio          String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  ideas        Idea[]
+  comments     Comment[]
+  contributions Contribution[]
+}
+
+model Idea {
+  id          Int        @id @default(autoincrement())
+  title       String
+  summary     String
+  description String?
+  repoUrl     String?
+  status      IdeaStatus @default(LOOKING_FOR_HELP)
+  visibility  Visibility @default(PUBLIC)
+  ownerId     Int
+  owner       User       @relation(fields: [ownerId], references: [id])
+  tags        IdeaTag[]
+  comments    Comment[]
+  contributions Contribution[]
+  upvotes     Int        @default(0)
+  forks       Int        @default(0)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Tag {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  ideas    IdeaTag[]
+}
+
+model IdeaTag {
+  ideaId Int
+  tagId Int
+  idea   Idea @relation(fields: [ideaId], references: [id])
+  tag    Tag  @relation(fields: [tagId], references: [id])
+
+  @@id([ideaId, tagId])
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  body      String
+  ideaId    Int
+  authorId  Int
+  idea      Idea     @relation(fields: [ideaId], references: [id])
+  author    User     @relation(fields: [authorId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model Contribution {
+  id            Int                 @id @default(autoincrement())
+  message       String?
+  status        ContributionStatus  @default(PENDING)
+  ideaId        Int
+  contributorId Int
+  idea          Idea                @relation(fields: [ideaId], references: [id])
+  contributor   User                @relation(fields: [contributorId], references: [id])
+  createdAt     DateTime            @default(now())
+}
+
+enum IdeaStatus {
+  DRAFT
+  LOOKING_FOR_HELP
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum Visibility {
+  PUBLIC
+  PRIVATE
+  UNLISTED
+}
+
+enum ContributionStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
+}

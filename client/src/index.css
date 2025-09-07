@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root { height: 100%; }
+body { @apply bg-gray-50 text-gray-900; }
+a { @apply text-indigo-600 hover:underline; }
+.btn { @apply inline-flex items-center justify-center px-3 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700; }
+.input { @apply border rounded-lg px-3 py-2 w-full; }
+.card { @apply p-4 border rounded-lg bg-white; }

@@ -1,0 +1,54 @@
+# .gitignore for halfbake project
+# Node modules
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# dotenv environment variables
+.env
+.env.*
+client/.env
+server/.env
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Build output
+/dist/
+client/dist/
+server/dist/
+
+# Prisma generated files
+server/prisma/dev.db
+server/prisma/dev.db-journal
+
+# Misc
+*.local
+.idea/
+.vscode/
+
+# Docker
+*.pid
+docker-compose.override.yml
+docker-compose.yml
+
+# Ignore database dumps
+*.sql
+*.sqlite
+
+# Ignore coverage reports
+coverage/
+
+# Ignore observability data
+observability/*.data
+
+# Ignore sensitive config
+server/prisma/.env
