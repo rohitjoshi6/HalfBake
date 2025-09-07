@@ -165,8 +165,6 @@ mysql_global_status_threads_connected
 2) **Explore** → pick Prometheus → paste queries above → **Run query**  
 3) To save charts: **Dashboards → New → Add visualization → Prometheus**, paste a query, pick **Time series**, **Apply**, **Save**.
 
-> Want PNGs for your README? Add `grafana-image-renderer` to Compose, then render `/render/d-solo/...` endpoints with a service account token.
-
 ---
 
 ## Troubleshooting
